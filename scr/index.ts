@@ -7,11 +7,8 @@ import Relatorio from "./Relatorio";
 import Teste from "./Teste";
 import { TipoAeronave } from "./enums";
 import { TipoPeca } from "./enums";
-import { TipoTeste } from "./enums";
-import { StatusEtapa } from "./enums";
 import { NivelPermissao } from "./enums";
 import { StatusPeca } from "./enums";
-import { ResultadoTeste } from "./enums";
 import * as fs from "fs";
 
 
