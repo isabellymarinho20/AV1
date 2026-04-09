@@ -263,7 +263,7 @@ while (resp) {
                     if (etapaSelecionada) {
                         console.log("\n-----------------------------------------");
                         etapaSelecionada.listarFuncionario();
-                        console.log("-----------------------------------------");
+                        
                     } else {
                         console.log("Nao tem essa etapa");
                     }
