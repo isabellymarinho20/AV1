@@ -52,6 +52,7 @@ while (resp) {
     console.log("12. Novo funcionario do sistema");
     console.log("13. Listar todos funcionarios");
     console.log("14. Listar funcionarios de uma etapa");
+    console.log("15. Adicionar etapa na aeronave");
     console.log("0. Sair");
     let opcao = readlineSync.question("\nEscolha uma opcao: ");
     switch (opcao) {
@@ -190,8 +191,9 @@ while (resp) {
                 console.log("Nivel permissao: 1. ADMINISTRADOR | 2. ENGENHEIRO | 3. OPERADOR ");
                 const nivelP = readlineSync.question("Nivel permissao: ");
                 let nivelPermissao = nivelP === "1" ? NivelPermissao.administrador : nivelP === "2" ? NivelPermissao.engenheiro : NivelPermissao.operador;
-                funcionarios.push(new Funcionario(idFuncionario, nomeFuncionario, telefoneFuncionario, enderecoFuncionario, usuarioFuncionario, senhaFuncionario, nivelPermissao));
-                console.log("Funcionario cadastrado.");
+                let funcionarioCadastrado = new Funcionario(idFuncionario, nomeFuncionario, telefoneFuncionario, enderecoFuncionario, usuarioFuncionario, senhaFuncionario, nivelPermissao);
+                funcionarioCadastrado.salvar();
+                funcionarios.push(funcionarioCadastrado);
             }
             else {
                 console.log("Acesso negado, voce nao é um administrador!");
@@ -202,10 +204,6 @@ while (resp) {
             funcionarios.forEach(f => console.log(`ID: ${f.id} | Nome: ${f.nome} | Telefone: ${f.telefone} | Endereco: ${f.endereco} | Cargo: ${f.nivelPermissao}`));
             break;
         case "14":
-            if (aeronaves.length === 0) {
-                console.log("Nenhuma aeronave cadastrada no sistema.");
-                break;
-            }
             aeronaves.forEach((a, i) => console.log(`${i} - [${a.codigo}] ${a.modelo}`));
             let idxAeronave = parseInt(readlineSync.question("Escolha a aeronave: "));
             let aeronaveSelecionada = aeronaves[idxAeronave];
@@ -227,6 +225,8 @@ while (resp) {
                     }
                 }
             }
+            break;
+        case "15":
             break;
         case "0":
             resp = false;

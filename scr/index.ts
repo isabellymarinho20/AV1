@@ -65,6 +65,7 @@ while (resp) {
     console.log("12. Novo funcionario do sistema");
     console.log("13. Listar todos funcionarios");
     console.log("14. Listar funcionarios de uma etapa");
+    console.log("15. Adicionar etapa na aeronave");
     console.log("0. Sair");
 
     let opcao = readlineSync.question("\nEscolha uma opcao: ");
@@ -240,11 +241,6 @@ while (resp) {
             break;
 
         case "14":
-            if (aeronaves.length === 0) {
-                console.log("Nenhuma aeronave cadastrada no sistema.");
-                break;
-            }
-
             aeronaves.forEach((a, i) => console.log(`${i} - [${a.codigo}] ${a.modelo}`));
             let idxAeronave = parseInt(readlineSync.question("Escolha a aeronave: "));
             let aeronaveSelecionada = aeronaves[idxAeronave];
@@ -268,6 +264,10 @@ while (resp) {
                     }
                 }
             }
+            break;
+        
+        case "15":
+            
             break;
 
         case "0":
