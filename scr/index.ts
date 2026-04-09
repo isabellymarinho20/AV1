@@ -95,8 +95,8 @@ while (resp) {
                 alcance = parseInt(readlineSync.question("Alcance: "));
             }
 
-            let novaAero = new Aeronave(codigo, modelo, tipoAeronave, capacidade, alcance);
-            aeronaves.push(novaAero);
+            let novaAeronave = new Aeronave(codigo, modelo, tipoAeronave, capacidade, alcance);
+            aeronaves.push(novaAeronave);
             console.log("Aeronave cadastrada!");
             break;
 
@@ -111,64 +111,57 @@ while (resp) {
             let sPeca = statusP === "1" ? StatusPeca.producao : statusP === "2" ? StatusPeca.transporte : StatusPeca.pronta;
 
             let peca = new Peca(nomeP, tPeca, fornecedor, sPeca);
-            // aeroPeca.pecas.push(peca); 
+            novaAeronave.pecas.push(peca); 
             break;
 
         case "3":
             if (aeronaves.length == 0){
                 console.log("Nenhuma aeronave no sistema")
             }
-            if (aeronaves.pecas.length === 0) {
-                console.log("Aeronave nao tem pecas.");
-                break;
+
+            if (novaAeronave.pecas.length == 0){
+                console.log("Nenhuma peca na aeronave criada")
             }
 
-            aeroStatus.pecas.forEach((p, i) => {
-                console.log(`${i} - ${p.nome} (${p.status})`);
-            });
-
-            const indexP = parseInt(readlineSync.question("Escolha o indice da peca: "));
-            if (!aeroStatus.pecas[indexP]) break;
-
             console.log("1. EM_PRODUCAO | 2. EM_TRANSPORTE | 3. PRONTA");
-            const status = readlineSync.question("Novo status: ");
-
-            aeroStatus.pecas[indexP].status = status === "1" ? StatusPeca.producao : status === "2" ? StatusPeca.transporte : StatusPeca.pronta;
-            console.log("Status atualizado!");
+            const novoStatus = readlineSync.question("Novo status: ");
+            let nvStatus = novoStatus === "1" ? StatusPeca.producao : novoStatus === "2" ? StatusPeca.transporte : StatusPeca.pronta;
+            peca.atualizarStatus(nvStatus)
             break;
 
         case "4":
-            const aeroFin = selecionarAeronave();
-            if (!aeroFin) break;
-            aeroFin.etapas.forEach((e, i) => console.log(`${i} - ${e.nome} (${e.status})`));
-            const idxFin = parseInt(readlineSync.question("Escolha a etapa: "));
-            if (aeroFin.etapas[idxFin]) {
-                aeroFin.etapas[idxFin].finalizar();
-                console.log("Etapa finalizada!");
+            if (aeronaves.length == 0){
+                console.log("Nenhuma aeronave no sistema")
+            }
+            novaAeronave.etapas.forEach((e, i) => console.log(`${i} - ${e.nome} (${e.status})`));
+            const idxFi = parseInt(readlineSync.question("Escolha a etapa: "));
+            if (novaAeronave.etapas[idxFi]) {
+                novaAeronave.etapas[idxFi].finalizar();
             }
             break;
 
         case "5":
-            const aeroIni = selecionarAeronave();
-            if (!aeroIni) break;
-            aeroIni.etapas.forEach((e, i) => console.log(`${i} - ${e.nome} (${e.status})`));
+            if (aeronaves.length == 0){
+                console.log("Nenhuma aeronave no sistema")
+            }
+            novaAeronave.etapas.forEach((e, i) => console.log(`${i} - ${e.nome} (${e.status})`));
             const idxIni = parseInt(readlineSync.question("Escolha a etapa: "));
-            if (aeroIni.etapas[idxIni]) {
-                aeroIni.etapas[idxIni].iniciar();
-                console.log("Etapa iniciada!");
+            if (novaAeronave.etapas[idxIni]) {
+                novaAeronave.etapas[idxIni].iniciar();
             }
             break;
 
         case "6":
-            const aeroFunc = selecionarAeronave();
-            if (!aeroFunc) break;
-            aeroFunc.etapas.forEach((e, i) => console.log(`${i} - ${e.nome}`));
-            const idxEt = parseInt(readlineSync.question("Escolha a etapa: "));
+            if (aeronaves.length == 0){
+                console.log("Nenhuma aeronave no sistema")
+            }
+            novaAeronave.etapas.forEach((e, i) => console.log(`${i} - ${e.nome} (${e.status})`));
+            const idxAss = parseInt(readlineSync.question("Escolha a etapa: "));
             funcionarios.forEach((f, i) => console.log(`${i} - ${f.nome}`));
             const idxFu = parseInt(readlineSync.question("Escolha o funcionario: "));
             
-            if (aeroFunc.etapas[idxEt] && funcionarios[idxFu]) {
-                aeroFunc.etapas[idxEt].associarFuncionario(funcionarios[idxFu]);
+            if (novaAeronave.etapas[idxAss] && funcionarios[idxFu]) {
+                novaAeronave.etapas[idxAss].associarFuncionario(funcionarios[idxFu]);
                 console.log("Funcionario associado!");
             }
             break;
