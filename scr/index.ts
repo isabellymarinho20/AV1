@@ -69,8 +69,8 @@ while (resp) {
     console.log("10. Salvar tudo");
     console.log("11. Listar aeronaves");
     console.log("12. Novo funcionario do sistema");
-    console.log("13. Listar todos funcionários");
-    console.log("14. Criar nova etapa");
+    console.log("13. Listar todos funcionarios");
+    console.log("14. Listar funcionarios de uma etapa");
     console.log("0. Sair");
 
     let opcao = readlineSync.question("\nEscolha uma opcao: ");
@@ -238,6 +238,37 @@ while (resp) {
         case "13":
             console.log("\n--- QUADRO DE FUNCIONARIOS ---");
             funcionarios.forEach(f => console.log(`ID: ${f.id} | Nome: ${f.nome} | Telefone: ${f.telefone} | Endereco: ${f.endereco} | Cargo: ${f.nivelPermissao}`));
+            break;
+
+        case "14":
+            if (aeronaves.length === 0) {
+                console.log("Nenhuma aeronave cadastrada no sistema.");
+                break;
+            }
+
+            aeronaves.forEach((a, i) => console.log(`${i} - [${a.codigo}] ${a.modelo}`));
+            let idxAeronave = parseInt(readlineSync.question("Escolha a aeronave: "));
+            let aeronaveSelecionada = aeronaves[idxAeronave];
+
+            if (aeronaveSelecionada) {
+                if (aeronaveSelecionada.etapas.length === 0) {
+                    console.log("Esta aeronave não possui etapas cadastradas.");
+                } else {
+                    console.log(`\nEtapas da aeronave ${aeronaveSelecionada.codigo}:`);
+                    aeronaveSelecionada.etapas.forEach((e, i) => console.log(`${i} - ${e.nome}`));
+                    
+                    let idxEtapa = parseInt(readlineSync.question("Escolha a etapa: "));
+                    let etapaSelecionada = aeronaveSelecionada.etapas[idxEtapa];
+
+                    if (etapaSelecionada) {
+                        console.log("\n-----------------------------------------");
+                        etapaSelecionada.listarFuncionario();
+                        console.log("-----------------------------------------");
+                    } else {
+                        console.log("Nao tem essa etapa");
+                    }
+                }
+            }
             break;
 
         case "0":
