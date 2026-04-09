@@ -1,1 +1,1 @@
-[{"codigo":"1","modelo":"aviao","tipo":"MILITAR","capacidade":8,"alcance":9,"pecas":[],"etapas":[],"testes":[]}]
+[{"codigo":"1","modelo":"aviao","tipo":"MILITAR","capacidade":8,"alcance":9,"pecas":[{"nome":"cadeira","tipo":"IMPORTADA","fornecedor":"embraer","status":"EM_TRANSPORTE"}],"etapas":[{"nome":"manutencao","prazo":"20/08/2028","status":"ANDAMENTO","funcionarios":[]}],"testes":[{"tipo":"ELETRICO","resultado":"APROVADO"}]},{"codigo":"2","modelo":"jato","tipo":"COMERCIAL","capacidade":5,"alcance":9,"pecas":[],"etapas":[],"testes":[]}]

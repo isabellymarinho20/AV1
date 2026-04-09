@@ -21,7 +21,7 @@ export default class Teste{
     
     
         fs.writeFileSync("testes.json", JSON.stringify(teste));
-        console.log("Teste cadastrado com sucesso!");
+        
     
     }
     

@@ -12,7 +12,6 @@ export default class Teste {
         }
         teste.push(this);
         fs.writeFileSync("testes.json", JSON.stringify(teste));
-        console.log("Teste cadastrado com sucesso!");
     }
     carregar() {
         console.log('...Carregando dados do teste...');

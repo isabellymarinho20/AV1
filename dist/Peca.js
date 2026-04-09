@@ -17,7 +17,6 @@ export default class Peca {
         }
         pecas.push(this);
         fs.writeFileSync("pecas.json", JSON.stringify(pecas));
-        console.log("Peca cadastrada com sucesso!");
     }
     carregar() {
         console.log('...Carregando dados da peca...');

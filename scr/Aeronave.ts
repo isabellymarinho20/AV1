@@ -81,30 +81,20 @@ export default class Aeronave{
         if (fs.existsSync("aeronaves.json")) {
             const jsonF = fs.readFileSync("aeronaves.json", "utf-8");
             aeronaves = JSON.parse(jsonF);
-        }
-            
-                    
-  
-        let duplicado = false;
-        for (let i = 0; i < aeronaves.length; i++) {
-            if (aeronaves[i].codigo === this.codigo) {
-                duplicado = true;
-                break;
-            }
-          }
-  
-        if (duplicado) {
-            console.log("ERRO: codigo ja cadastrado.");
-            return;
+        }   
+
+        const idx = aeronaves.findIndex(a => a.codigo === this.codigo);
+
+        if (idx >= 0) {
+            aeronaves[idx] = this;
+        } else {
+            aeronaves.push(this);
         }
 
-        aeronaves.push(this)
-  
         fs.writeFileSync("aeronaves.json", JSON.stringify(aeronaves));
-        console.log("Aeronave cadastrada com sucesso!");
-  
-      }
-  
+    
+    }
+    
     carregar(): void{
         console.log('...Carregando dados do funcionario...')
     }
