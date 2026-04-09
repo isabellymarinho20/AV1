@@ -12,9 +12,9 @@ let funcionarios: Funcionario[] = [];
 let aeronaves: Aeronave[] = [];
 let funcionarioLogado: Funcionario | null = null;
 
-let funcionario_adm = new Funcionario('1', 'Isabelly', '12988374635', 'rua alegria', 'isa', '2090',NivelPermissao.administrador)
-funcionario_adm.salvar()
-funcionarios.push(funcionario_adm)
+// let funcionario_adm = new Funcionario('1', 'Isabelly', '12988374635', 'rua alegria', 'isa', '2090',NivelPermissao.administrador)
+// funcionario_adm.salvar()
+// funcionarios.push(funcionario_adm)
 
 if (fs.existsSync("funcionarios.json")) {
     const dados = JSON.parse(fs.readFileSync("funcionarios.json", "utf-8"));
@@ -106,6 +106,7 @@ while (resp) {
             let sPeca = statusP === "1" ? StatusPeca.producao : statusP === "2" ? StatusPeca.transporte : StatusPeca.pronta;
 
             let peca = new Peca(nomeP, tPeca, fornecedor, sPeca);
+            peca.salvar()
             novaAeronave.pecas.push(peca); 
             break;
 
@@ -174,6 +175,7 @@ while (resp) {
 
             let teste = new Teste(tipoTeste, resultadoTeste)
             teste.salvar()
+            teste.salvar()
             novaAeronave.testes.push(teste); 
             
             break;
@@ -223,8 +225,10 @@ while (resp) {
                 console.log("Nivel permissao: 1. ADMINISTRADOR | 2. ENGENHEIRO | 3. OPERADOR ");
                 const nivelP = readlineSync.question("Nivel permissao: ");
                 let nivelPermissao = nivelP === "1" ? NivelPermissao.administrador : nivelP === "2" ? NivelPermissao.engenheiro : NivelPermissao.operador;
-                funcionarios.push(new Funcionario(idFuncionario, nomeFuncionario, telefoneFuncionario, enderecoFuncionario, usuarioFuncionario, senhaFuncionario, nivelPermissao));
-                console.log("Funcionario cadastrado.");
+                let funcionarioCadastrado = new Funcionario(idFuncionario, nomeFuncionario, telefoneFuncionario, enderecoFuncionario, usuarioFuncionario, senhaFuncionario, nivelPermissao)
+                funcionarioCadastrado.salvar();
+                funcionarios.push(funcionarioCadastrado);
+                
             } else {
                 console.log("Acesso negado, voce nao é um administrador!");
             }

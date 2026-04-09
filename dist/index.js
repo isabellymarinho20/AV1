@@ -9,9 +9,9 @@ import * as fs from "fs";
 let funcionarios = [];
 let aeronaves = [];
 let funcionarioLogado = null;
-let funcionario_adm = new Funcionario('1', 'Isabelly', '12988374635', 'rua alegria', 'isa', '2090', NivelPermissao.administrador);
-funcionario_adm.salvar();
-funcionarios.push(funcionario_adm);
+// let funcionario_adm = new Funcionario('1', 'Isabelly', '12988374635', 'rua alegria', 'isa', '2090',NivelPermissao.administrador)
+// funcionario_adm.salvar()
+// funcionarios.push(funcionario_adm)
 if (fs.existsSync("funcionarios.json")) {
     const dados = JSON.parse(fs.readFileSync("funcionarios.json", "utf-8"));
     for (let f of dados) {
@@ -86,6 +86,7 @@ while (resp) {
             let statusP = readlineSync.question("Status: ");
             let sPeca = statusP === "1" ? StatusPeca.producao : statusP === "2" ? StatusPeca.transporte : StatusPeca.pronta;
             let peca = new Peca(nomeP, tPeca, fornecedor, sPeca);
+            peca.salvar();
             novaAeronave.pecas.push(peca);
             break;
         case "3":
@@ -144,6 +145,7 @@ while (resp) {
             const resultadoT = readlineSync.question("Resultado: ");
             let resultadoTeste = tipoT === "1" ? ResultadoTeste.aprovado : ResultadoTeste.reprovado;
             let teste = new Teste(tipoTeste, resultadoTeste);
+            teste.salvar();
             teste.salvar();
             novaAeronave.testes.push(teste);
             break;
