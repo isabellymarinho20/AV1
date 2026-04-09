@@ -11,11 +11,16 @@ export default class Teste{
     }
 
     salvar(): void{
-        const jsonF = fs.readFileSync("teste.json", "utf-8");
-        const teste = JSON.parse(jsonF);
+        let teste =[]
+        if (fs.existsSync("testes.json")) {
+            const jsonF = fs.readFileSync("testes.json", "utf-8");
+            teste = JSON.parse(jsonF);
+        }
+            
+        teste.push(this)
     
     
-        fs.writeFileSync("teste.json", JSON.stringify(teste));
+        fs.writeFileSync("testes.json", JSON.stringify(teste));
         console.log("Teste cadastrado com sucesso!");
     
     }

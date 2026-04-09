@@ -1,38 +1,30 @@
-import { StatusEtapa } from "./enums.js"
-import Funcionario from "./Funcionario.js"
-
-export default class Etapa{
-    public nome:string
-    public prazo:string
-    public status: StatusEtapa
-    public funcionarios: Array<Funcionario>
-
-    constructor(nome:string,prazo:string,status: StatusEtapa,funcionarios: Array<Funcionario>){
-        this.nome=nome
-        this.prazo=prazo
-        this.status=status
-        this.funcionarios= []
+import { StatusEtapa } from "./enums.js";
+export default class Etapa {
+    constructor(nome, prazo, status, funcionarios) {
+        this.nome = nome;
+        this.prazo = prazo;
+        this.status = status;
+        this.funcionarios = [];
     }
-
-    iniciar(): void{
+    iniciar() {
         if (this.status === StatusEtapa.pendente || this.status === StatusEtapa.concluido) {
             this.status = StatusEtapa.andamento;
             console.log("Etapa iniciada!");
-        } else {
+        }
+        else {
             console.log("A etapa já foi iniciada ou concluida.");
         }
     }
-
-    finalizar(): void{
+    finalizar() {
         if (this.status === StatusEtapa.pendente || this.status === StatusEtapa.andamento) {
             this.status = StatusEtapa.concluido;
             console.log("Etapa concluida!");
-        } else {
+        }
+        else {
             console.log("A etapa já foi concluida");
         }
     }
-
-    associarFuncionario(f:Funcionario): void{
+    associarFuncionario(f) {
         let duplicado = false;
         for (let i = 0; i < this.funcionarios.length; i++) {
             if (this.funcionarios[i].id === f.id) {
@@ -40,27 +32,23 @@ export default class Etapa{
                 break;
             }
         }
-
         if (!duplicado) {
             this.funcionarios.push(f);
             console.log("Funcionario associado!");
-        } else {
+        }
+        else {
             console.log("Funcionario ja esta na etapa!");
         }
     }
-
-    listarFuncionario(): Array<Funcionario>{
+    listarFuncionario() {
         if (this.funcionarios.length === 0) {
             console.log("Nenhum funcionario associado.");
             return [];
         }
-    
         console.log("Funcionarios da etapa:");
-    
         this.funcionarios.forEach(f => {
             console.log(f.id + " - " + f.nome);
         });
-    
         return this.funcionarios;
     }
 }

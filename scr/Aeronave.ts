@@ -1,7 +1,7 @@
-import { TipoAeronave }  from "./enums"
-import Peca  from "./Peca"
-import Etapa from "./Etapa"
-import Teste from "./Teste"
+import { TipoAeronave }  from "./enums.js"
+import Peca  from "./Peca.js"
+import Etapa from "./Etapa.js"
+import Teste from "./Teste.js"
 import * as fs from "fs";
 
 
@@ -77,8 +77,13 @@ export default class Aeronave{
 
 
     salvar(): void{
-        const jsonF = fs.readFileSync("aeronaves.json", "utf-8");
-        const aeronaves = JSON.parse(jsonF);
+        let aeronaves =[]
+        if (fs.existsSync("aeronaves.json")) {
+            const jsonF = fs.readFileSync("aeronaves.json", "utf-8");
+            aeronaves = JSON.parse(jsonF);
+        }
+            
+                    
   
         let duplicado = false;
         for (let i = 0; i < aeronaves.length; i++) {
@@ -92,6 +97,8 @@ export default class Aeronave{
             console.log("ERRO: codigo ja cadastrado.");
             return;
         }
+
+        aeronaves.push(this)
   
         fs.writeFileSync("aeronaves.json", JSON.stringify(aeronaves));
         console.log("Aeronave cadastrada com sucesso!");

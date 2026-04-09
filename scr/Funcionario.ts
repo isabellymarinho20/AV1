@@ -1,4 +1,4 @@
-import { NivelPermissao } from "./enums"
+import { NivelPermissao } from "./enums.js"
 import * as fs from "fs";
 
 export default class Funcionario{
@@ -29,8 +29,12 @@ export default class Funcionario{
     }
 
     salvar(): void{
-        const jsonF = fs.readFileSync("funcionarios.json", "utf-8");
-        const funcionarios = JSON.parse(jsonF);
+        let funcionarios=[]
+
+        if (fs.existsSync("funcionarios.json")) {
+            const jsonF = fs.readFileSync("funcionarios.json", "utf-8");
+            funcionarios = JSON.parse(jsonF);
+        }
 
         let duplicado = false;
         for (let i = 0; i < funcionarios.length; i++) {
@@ -45,6 +49,7 @@ export default class Funcionario{
             return;
         }
 
+        funcionarios.push(this);
         fs.writeFileSync("funcionarios.json", JSON.stringify(funcionarios));
         console.log("Funcionario cadastrado com sucesso!");
 

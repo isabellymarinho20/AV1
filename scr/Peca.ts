@@ -1,4 +1,4 @@
-import { StatusPeca, TipoPeca } from "./enums"
+import { StatusPeca, TipoPeca } from "./enums.js"
 import * as fs from "fs";
 
 export default class Peca{
@@ -19,10 +19,13 @@ export default class Peca{
     }
 
     salvar(): void{
-            const jsonF = fs.readFileSync("pecas.json", "utf-8");
-            const pecas = JSON.parse(jsonF);
+        let pecas =[]
+        if (fs.existsSync("pecas.json")) {
+                const jsonF = fs.readFileSync("pecas.json", "utf-8");
+                pecas = JSON.parse(jsonF);
+        }
     
-            
+            pecas.push(this)
             fs.writeFileSync("pecas.json", JSON.stringify(pecas));
             console.log("Peca cadastrada com sucesso!");
     
