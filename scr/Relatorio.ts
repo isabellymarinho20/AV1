@@ -2,11 +2,8 @@ import Aeronave from "./Aeronave";
 import * as fs from "fs";
 
 export default class Relatorio {
-    public conteudo: string;
-
-    constructor(conteudo:string){
-        this.conteudo = conteudo
-    }
+    public conteudo: string = ""
+    
 
     gerarRelatorio(aeronave: Aeronave): void {
         this.conteudo = "";
