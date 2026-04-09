@@ -5,7 +5,7 @@ import Aeronave from "./Aeronave";
 import Peca from "./Peca";
 import Relatorio from "./Relatorio";
 import Teste from "./Teste";
-import { TipoAeronave, TipoPeca, NivelPermissao, StatusPeca } from "./enums";
+import { TipoAeronave, TipoPeca, NivelPermissao, StatusPeca, TipoTeste, ResultadoTeste } from "./enums";
 import * as fs from "fs";
 
 let funcionarios: Funcionario[] = [];
@@ -167,34 +167,35 @@ while (resp) {
             break;
             
         case "7":
-            const aeroTeste = selecionarAeronave();
-            if (!aeroTeste) break;
+            if (aeronaves.length == 0){
+                console.log("Nenhuma aeronave no sistema")
+            }
             console.log("Tipos: 1. ELETRICO | 2. HIDRAULICO | 3. AERODINAMICO");
-            const tT = readlineSync.question("Tipo do teste: ");
-            console.log("Resultado: 1. APROVADO | 2. REPROVADO");
-            const rT = readlineSync.question("Resultado: ");
+            const tipoT = readlineSync.question("Tipo do teste: ");
+            let tipoTeste = tipoT === "1" ? TipoTeste.eletrico : tipoT === "2" ? TipoTeste.hidraulico : TipoTeste.aerodinamico;
+            console.log("Resultados: 1. APROVADO | 2. REPROVADO ");
+            const resultadoT = readlineSync.question("Resultado: ");
+            let resultadoTeste = tipoT === "1" ? ResultadoTeste.aprovado  : ResultadoTeste.reprovado;
 
-            const tipoTeste = tT === "1" ? "ELETRICO" : tT === "2" ? "HIDRAULICO" : "AERODINAMICO";
-            const resTeste = rT === "1" ? "APROVADO" : "REPROVADO";
-
-            aeroTeste.testes.push(new Teste(tipoTeste, resTeste)); 
-            console.log("Teste registrado!");
+            let teste = new Teste(tipoTeste, resultadoTeste)
+            teste.salvar()
+            novaAeronave.testes.push(teste); 
+            
             break;
     
         case "8":
-            const codDet = readlineSync.question("Codigo da aeronave: ");
-            const aeroDet = aeronaves.find(a => a.codigo === codDet);
-            aeroDet ? aeroDet.detalhes() : console.log("Aeronave nao encontrada.");
+            const codigoAeronave = readlineSync.question("Codigo da aeronave: ");
+            const detalhesAeronave = aeronaves.find(a => a.codigo === codigoAeronave);
+            detalhesAeronave ? detalhesAeronave.detalhes() : console.log("Aeronave nao encontrada.");
             break;
 
         case "9":
-            const codRel = readlineSync.question("Codigo da aeronave: ");
-            const aeroRel = aeronaves.find(a => a.codigo === codRel);
-            if (aeroRel) {
+            const codigoAeronaveR = readlineSync.question("Codigo da aeronave: ");
+            const relatorioAeronave = aeronaves.find(a => a.codigo === codigoAeronaveR);
+            if (relatorioAeronave) {
                 const rel = new Relatorio();
-                rel.gerarRelatorio(aeroRel);
+                rel.gerarRelatorio(relatorioAeronave);
                 rel.salvarEmArquivo();
-                console.log("Relatório gerado!");
             }
             break;
 
@@ -206,44 +207,45 @@ while (resp) {
 
         case "11":
             console.log("\n--- AERONAVES CADASTRADAS ---");
-            aeronaves.length === 0 ? console.log("Nenhuma cadastrada.") : 
-            aeronaves.forEach(a => console.log(`Codigo: ${a.codigo} | Modelo: ${a.modelo}`));
+            if (aeronaves.length == 0){
+                console.log("Nenhuma aeronave no sistema")
+            }
+            aeronaves.forEach(a => {
+                console.log("-----------------------------------------");
+                a.detalhes(); 
+            });
+            console.log("-----------------------------------------");
             break;
-
+        
         case "12":
             if (funcionarioLogado?.nivelPermissao === NivelPermissao.administrador) {
-                const idF = readlineSync.question("ID: ");
-                const nomeF = readlineSync.question("Nome: ");
-                const userF = readlineSync.question("Usuario: ");
-                const senhaF = readlineSync.question("Senha: ");
-                funcionarios.push(new Funcionario(idF, nomeF, "000", "Endereço", userF, senhaF, NivelPermissao.operador));
+                const idFuncionario = readlineSync.question("ID: ");
+                const nomeFuncionario = readlineSync.question("Nome: ");
+                const telefoneFuncionario = readlineSync.question("Telefone: ");
+                const enderecoFuncionario = readlineSync.question("Endereco: ");
+                const usuarioFuncionario = readlineSync.question("Usuario: ");
+                const senhaFuncionario = readlineSync.question("Senha: ");
+                console.log("Nivel permissao: 1. ADMINISTRADOR | 2. ENGENHEIRO | 3. OPERADOR ");
+                const nivelP = readlineSync.question("Nivel permissao: ");
+                let nivelPermissao = nivelP === "1" ? NivelPermissao.administrador : nivelP === "2" ? NivelPermissao.engenheiro : NivelPermissao.operador;
+                funcionarios.push(new Funcionario(idFuncionario, nomeFuncionario, telefoneFuncionario, enderecoFuncionario, usuarioFuncionario, senhaFuncionario, nivelPermissao));
                 console.log("Funcionario cadastrado.");
             } else {
-                console.log("Acesso negado.");
+                console.log("Acesso negado, voce nao é um administrador!");
             }
             break;
 
         case "13":
             console.log("\n--- QUADRO DE FUNCIONARIOS ---");
-            funcionarios.forEach(u => console.log(`ID: ${u.id} | Nome: ${u.nome} | Cargo: ${u.nivelPermissao}`));
-            break;
-
-        case "14":
-            const aeroEt = selecionarAeronave();
-            if (!aeroEt) break;
-            const nEtapa = readlineSync.question("Nome da etapa: ");
-            const pEtapa = readlineSync.question("Prazo: ");
-            aeroEt.etapas.push(new Etapa(nEtapa, pEtapa));
-            console.log("Etapa criada!");
+            funcionarios.forEach(f => console.log(`ID: ${f.id} | Nome: ${f.nome} | Telefone: ${f.telefone} | Endereco: ${f.endereco} | Cargo: ${f.nivelPermissao}`));
             break;
 
         case "0":
-            console.log("Saindo...");
             resp = false;
             break;
 
         default:
-            console.log("Opção inválida.");
+            console.log("Nao tem essa opção");
             break;
     }
 }

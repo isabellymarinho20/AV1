@@ -58,6 +58,6 @@ export default class Relatorio {
 
     salvarEmArquivo(): void {
         fs.writeFileSync("relatorio.txt", this.conteudo);
-        console.log("Relatorio salvo em arquivo!");
+        console.log("Relatorio salvo!");
     }
 }
