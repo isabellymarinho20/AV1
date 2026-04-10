@@ -4,18 +4,18 @@ Sistema desenvolvido para gerenciamento do processo de desenvolvimento de aerona
 
 ---
 
-## Requisitos de Instalação:
+## Requisitos de Instalação
 
 Antes de começar, certifique-se de ter instalado em sua máquina:
 
-* **Node.js**: Versão LTS recente (18 ou superior recomendada).
-* **npm**: Gerenciador de pacotes do Node (instalado junto com o Node.js).
+* **Node.js** (versão 18 ou superior recomendada)
+* **npm** (gerenciador de pacotes do Node, instalado junto com o Node.js)
 
 ---
 
 ## Passo a Passo: Do Desenvolvimento à Execução
 
-Siga estas etapas no seu terminal para configurar, compilar e rodar o projeto.
+Siga estas etapas no terminal para configurar, compilar e rodar o projeto.
 
 ---
 
@@ -24,7 +24,6 @@ Siga estas etapas no seu terminal para configurar, compilar e rodar o projeto.
 A estrutura base do projeto e as dependências necessárias já estão definidas. Você precisa apenas baixar o projeto e instalar os pacotes:
 
 ```bash
-# Clone o repositório ou baixe os arquivos
 # Navegue até a pasta do projeto
 cd av1
 
@@ -36,10 +35,10 @@ npm install
 
 ### 2. Desenvolvimento
 
-O código-fonte principal deve ser escrito dentro da pasta `./scr`.
+O código-fonte principal deve ser escrito na pasta `./scr`.
 O arquivo de entrada principal é o `index.ts`.
 
-Sempre que fizer alterações no código TypeScript na pasta `scr`, você precisará recompilar o projeto para que as mudanças tenham efeito.
+Sempre que fizer alterações no código TypeScript na pasta `scr`, será necessário recompilar o projeto para que as mudanças tenham efeito.
 
 ---
 
@@ -48,65 +47,63 @@ Sempre que fizer alterações no código TypeScript na pasta `scr`, você precis
 Converta os arquivos TypeScript (`.ts`) da pasta `scr` para JavaScript (`.js`) executável na pasta `dist`:
 
 ```bash
-# Executa o compilador TypeScript
 npx tsc
 ```
 
-**OBSERVAÇÃO:**
-O comando acima lê as configurações do arquivo `tsconfig.json` e cria/atualiza a pasta `dist`.
+**Observação:**
+O comando acima utiliza as configurações do arquivo `tsconfig.json` e cria/atualiza a pasta `dist`.
 
 ---
 
 ### 4. Execução da Aplicação
 
-Após a compilação bem-sucedida, você pode rodar o sistema compilado com o Node.js:
+Após a compilação, execute o sistema com o Node.js:
 
 ```bash
-# Executa o arquivo principal gerado na pasta dist
 node dist/index.js
 ```
 
 ---
 
-## Acesso para login de administrador
+## Acesso ao Sistema
 
-Para testar as funcionalidades restritas de administrador, utilize os seguintes dados padrão:
+### Administrador
 
 * **Usuário:** isa
 * **Senha:** 2090
 
-Ja para testar as funcionalidades de operador, utilize os seguintes dados padrão:
+### Operador
 
 * **Usuário:** belly
 * **Senha:** 123
 
-**Nota Importante:** Caso você precise consultar outros usuários ou as credenciais acima não funcionem, verifique o arquivo `funcionarios.json` na raiz do projeto.
+**Observação:** Caso as credenciais não funcionem ou você queira consultar outros usuários, verifique o arquivo `funcionarios.json` na raiz do projeto.
 
 ---
 
 ## Solução de Problemas: Menu Duplicado
 
-Um comportamento comum ao compilar o projeto repetidas vezes é o menu aparecer duplicado no terminal ao executar:
+Se o menu aparecer duplicado ao executar:
 
 ```bash
 node dist/index.js
 ```
 
-Isso ocorre devido ao acúmulo de arquivos antigos na pasta `dist` que não foram limpos antes da nova compilação.
+Isso ocorre devido ao acúmulo de arquivos antigos na pasta `dist`.
 
 ---
 
 ### Como resolver
 
-A melhor solução é limpar a pasta `dist` antes de compilar novamente.
+Limpe a pasta `dist` antes de compilar novamente.
 
-#### No Windows (PowerShell)
+#### Windows (PowerShell)
 
 ```powershell
 rm -r dist ; npx tsc
 ```
 
-#### No Linux ou Mac
+#### Linux / Mac
 
 ```bash
 rm -rf dist && npx tsc
@@ -114,13 +111,9 @@ rm -rf dist && npx tsc
 
 ---
 
-## Especificações Técnicas:
+## Especificações Técnicas
 
-Esta seção detalha a configuração e as dependências do projeto.
-
-### Arquivos de Configuração:
-
-Os arquivos abaixo já estão configurados no projeto:
+### Arquivos de Configuração
 
 #### `package.json`
 
@@ -161,7 +154,7 @@ Os arquivos abaixo já estão configurados no projeto:
 
 ## Estrutura do Projeto
 
-Abaixo está a organização principal dos arquivos e pastas do projeto:
+Abaixo está a organização principal dos arquivos e pastas:
 
 ```bash
 av1/
@@ -177,34 +170,31 @@ av1/
 
 ---
 
-
 ## Importante sobre a pasta `dist`
 
-A pasta `dist` é gerada automaticamente pelo TypeScript após a compilação do projeto.
+A pasta `dist` é gerada automaticamente após a compilação.
 
-**Não edite arquivos dentro dela**
-**Sempre edite os arquivos na pasta `scr`**
+* Não edite arquivos dentro dela
+* Sempre edite os arquivos na pasta `scr`
 
-!! Qualquer alteração feita diretamente em `dist` será perdida na próxima compilação.
+Qualquer alteração feita diretamente em `dist` será perdida na próxima compilação.
 
 ---
 
-## Arquivos Json:
+## Arquivos JSON
 
 Os dados do sistema são armazenados em arquivos JSON na raiz do projeto.
 
-* `funcionarios.json`: Armazena os usuários cadastrados
+* `funcionarios.json`: armazena os usuários cadastrados
 
-OBSERVAÇÃO: Não delete esses arquivos, pois eles contêm os dados do sistema.
+Não delete esses arquivos, pois eles contêm os dados do sistema.
 
 ---
 
-## IMPORTANTE:
+## Importante
 
 Sempre que alterar arquivos `.ts`, execute novamente:
 
 ```bash
 npx tsc
 ```
-
-
