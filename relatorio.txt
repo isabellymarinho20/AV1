@@ -1,0 +1,18 @@
+===== RELATÓRIO FINAL =====
+---------------------------
+----AERONAVE:----
+Código: 1
+Modelo: aviao
+Tipo: MILITAR
+Capacidade: 8
+Alcance: 9
+---------------------------
+PEÇAS:
+cadeira - IMPORTADA - EM_TRANSPORTE
+---------------------------
+ETAPAS:
+manutencao - ANDAMENTO
+---------------------------
+TESTES:
+ELETRICO - APROVADO
+---------------------------

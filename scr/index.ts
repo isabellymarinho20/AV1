@@ -30,12 +30,16 @@ if (fs.existsSync("aeronaves.json")) {
     for (let a of dados) {
         let aeronave = new Aeronave(a.codigo,a.modelo,a.tipo,a.capacidade,a.alcance);
         aeronave.pecas = a.pecas || [];
-        aeronave.etapas = a.etapas || [];
+        aeronave.etapas = (a.etapas || []).map((e: any) =>
+            new Etapa(e.nome, e.prazo, e.status, e.funcionarios || []));
         aeronave.testes = a.testes || [];
 
         aeronaves.push(aeronave);
     }
 }
+
+
+
 
 
 
@@ -86,6 +90,11 @@ while (resp) {
     switch (opcao) {
         case "1": 
             let codigo = readlineSync.question("Codigo: ");
+            while (aeronaves.find(a => a.codigo === codigo)) {
+                console.log("Codigo duplicado");
+                codigo = readlineSync.question("Codigo: ");
+            }
+
             let modelo = readlineSync.question("Modelo: ");
             console.log("Tipos: 1. COMERCIAL | 2. MILITAR");
             let tipo = readlineSync.question("Escolha o tipo: ");
@@ -111,11 +120,11 @@ while (resp) {
 
         case "2": 
             aeronaves.forEach((a, i) => {
-            console.log(`${i} - [${a.codigo}] ${a.modelo}`);
+            console.log(`Codigo: ${a.codigo} - ${a.modelo}`);
             });
 
-            let idx = parseInt(readlineSync.question("Escolha a aeronave: "));
-            let aeronaveSelecion = aeronaves[idx];
+            const codigoAeron = readlineSync.question("Codigo da aeronave: ");
+            const aeronaveSelecion = aeronaves.find(a => a.codigo === codigoAeron);
 
             if (!aeronaveSelecion) {
                 console.log("Nao tem essa aeronave");
@@ -161,7 +170,7 @@ while (resp) {
             let nvStatus = novoStatus === "1" ? StatusPeca.producao : novoStatus === "2" ? StatusPeca.transporte : StatusPeca.pronta;
             pecaSelecionada.atualizarStatus(nvStatus)
             pecaSelecionada.salvar()
-            console.log("Status da peca atualizado com sucesso!");
+            console.log("\nStatus da peca atualizado com sucesso!");
             break;
 
         case "4":
@@ -170,12 +179,12 @@ while (resp) {
                 break;
             }
         
-            aeronaves.forEach((a, i) => {
-                console.log(`${i} - [${a.codigo}] ${a.modelo}`);
+            aeronaves.forEach((a) => {
+                console.log(`Codigo: ${a.codigo} - ${a.modelo}`);
             });
 
-            let codigoAer = parseInt(readlineSync.question("Escolha a aeronave: "));
-            let aeronaveSelec = aeronaves[codigoAer];
+            const codigoAer = readlineSync.question("Codigo da aeronave: ");
+            const aeronaveSelec = aeronaves.find(a => a.codigo === codigoAer);
 
             if (!aeronaveSelec) {
                 console.log("Nao tem essa aeronave");
@@ -186,7 +195,6 @@ while (resp) {
             if (aeronaveSelec.etapas[idxFi]) {
                 aeronaveSelec.etapas[idxFi].finalizar();
                 aeronaveSelec.salvar()
-                console.log("Etapa finalizada com sucesso!");
             }
             break;
 
@@ -197,12 +205,12 @@ while (resp) {
             }
 
         
-            aeronaves.forEach((a, i) => {
-                console.log(`${i} - [${a.codigo}] ${a.modelo}`);
+            aeronaves.forEach((a) => {
+                console.log(`Codigo: ${a.codigo} - ${a.modelo}`);
             });
 
-            let codigoAero = parseInt(readlineSync.question("Escolha a aeronave: "));
-            let aeronaveSelecio = aeronaves[codigoAero];
+            const codigoAero = readlineSync.question("Codigo da aeronave: ");
+            const aeronaveSelecio = aeronaves.find(a => a.codigo === codigoAero);
 
             if (!aeronaveSelecio) {
                 console.log("Nao tem essa aeronave");
@@ -218,7 +226,6 @@ while (resp) {
             if (aeronaveSelecio.etapas[idxIni]) {
                 aeronaveSelecio.etapas[idxIni].iniciar();
                 aeronaveSelecio.salvar()
-                console.log("Etapa iniciada com sucesso!");
             }else{
                 console.log("Nao existe essa etapa")
             }
@@ -230,12 +237,12 @@ while (resp) {
                 break;
             }
         
-            aeronaves.forEach((a, i) => {
-                console.log(`${i} - [${a.codigo}] ${a.modelo}`);
+            aeronaves.forEach((a) => {
+                console.log(`Codigo: ${a.codigo} - ${a.modelo}`);
             });
 
-            let codigoA = parseInt(readlineSync.question("Escolha a aeronave: "));
-            let aeronaveS = aeronaves[codigoA];
+            const codigoA = readlineSync.question("Codigo da aeronave: ");
+            const aeronaveS = aeronaves.find(a => a.codigo === codigoA);
 
             if (!aeronaveS) {
                 console.log("Nao tem essa aeronave");
@@ -260,12 +267,12 @@ while (resp) {
                 break;
             }
         
-            aeronaves.forEach((a, i) => {
-                console.log(`${i} - [${a.codigo}] ${a.modelo}`);
+            aeronaves.forEach((a) => {
+                console.log(`Codigo: ${a.codigo} - ${a.modelo}`);
             });
 
-            let codigoAe = parseInt(readlineSync.question("Escolha a aeronave: "));
-            let aeronaveSe = aeronaves[codigoAe];
+            const codigoAe = readlineSync.question("Codigo da aeronave: ");
+            const aeronaveSe = aeronaves.find(a => a.codigo === codigoAe);
 
             if (!aeronaveSe) {
                 console.log("Nao tem essa aeronave");
@@ -295,11 +302,11 @@ while (resp) {
             }
             
             aeronaves.forEach((a) => {
-                console.log(`[${a.codigo}] ${a.modelo}`);
+                console.log(`Codigo: ${a.codigo} - ${a.modelo}`);
             });
 
             const codigoAeronave = readlineSync.question("Codigo da aeronave: ");
-            let aeronaveSeleciona = aeronaves[codigoAeronave];
+            const aeronaveSeleciona = aeronaves.find(a => a.codigo === codigoAeronave);
 
             if (!aeronaveSeleciona) {
                 console.log("Nao tem essa aeronave");
@@ -316,11 +323,11 @@ while (resp) {
             }
         
             aeronaves.forEach((a, i) => {
-                console.log(`${i} - [${a.codigo}] ${a.modelo}`);
+                console.log(`Codigo: ${a.codigo} - ${a.modelo}`);
             });
 
             const codigoAeronaveR = readlineSync.question("Codigo da aeronave: ");
-            let aeronaveSelecionad = aeronaves[codigoAeronave];
+            const aeronaveSelecionad = aeronaves.find(a => a.codigo === codigoAeronaveR);
 
             if (!aeronaveSelecionad) {
                 console.log("Nao tem essa aeronave");
@@ -333,12 +340,6 @@ while (resp) {
                 rel.salvarEmArquivo();
             }
             break;
-
-        // case "10":
-        //     aeronaves.forEach(a => a.salvar());
-        //     fs.writeFileSync("funcionarios.json", JSON.stringify(funcionarios, null, 2));
-        //     console.log("Dados salvos com sucesso.");
-        //     break;
 
         case "10":
             console.log("\n--- AERONAVES CADASTRADAS ---");
@@ -366,7 +367,6 @@ while (resp) {
                 let funcionarioCadastrado = new Funcionario(idFuncionario, nomeFuncionario, telefoneFuncionario, enderecoFuncionario, usuarioFuncionario, senhaFuncionario, nivelPermissao)
                 funcionarios.push(funcionarioCadastrado);
                 funcionarioCadastrado.salvar();
-                console.log("Funcionario cadastrado com sucesso!");
                 
             } else {
                 console.log("Acesso negado, voce nao é um administrador!");
@@ -379,9 +379,9 @@ while (resp) {
             break;
 
         case "13":
-            aeronaves.forEach((a, i) => console.log(`${i} - [${a.codigo}] ${a.modelo}`));
-            let idxAeronave = parseInt(readlineSync.question("Escolha a aeronave: "));
-            let aeronaveSelecionada = aeronaves[idxAeronave];
+            aeronaves.forEach((a, i) => console.log(`Codigo: ${a.codigo} ${a.modelo}`));
+            const idxAeronave = readlineSync.question("Codigo da aeronave: ");
+            const aeronaveSelecionada = aeronaves.find(a => a.codigo === idxAeronave);
 
             if (aeronaveSelecionada) {
                 if (aeronaveSelecionada.etapas.length === 0) {
@@ -411,12 +411,12 @@ while (resp) {
         }
 
         
-        aeronaves.forEach((a, i) => {
-            console.log(`${i} - [${a.codigo}] ${a.modelo}`);
+        aeronaves.forEach((a) => {
+            console.log(`Codigo: ${a.codigo} - ${a.modelo}`);
         });
 
-        let idxAero = parseInt(readlineSync.question("Escolha a aeronave: "));
-        let aeronaveSele = aeronaves[idxAero];
+        let codigoAerona = parseInt(readlineSync.question("Escolha a aeronave: "));
+        let aeronaveSele = aeronaves[codigoAerona];
 
         if (!aeronaveSele) {
             console.log("Nao tem essa aeronave");
@@ -425,7 +425,12 @@ while (resp) {
 
         
         let nomeEtapa = readlineSync.question("Nome da etapa: ");
-        let prazoEtapa = readlineSync.question("Prazo: ");
+        let prazoEtapa = readlineSync.question("Prazo (DD-MM-YYYY): ");
+
+        while (!/^\d{2}-\d{2}-\d{4}$/.test(prazoEtapa)) {
+            console.log("Formato errado! (DD-MM-YYYY)");
+            prazoEtapa = readlineSync.question("Prazo (DD-MM-YYYY): ");
+        }
 
         console.log("Status: 1. PENDENTE | 2. EM ANDAMENTO | 3. CONCLUIDO");
         let statusE = readlineSync.question("Escolha o status: ");

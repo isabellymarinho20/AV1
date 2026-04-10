@@ -43,7 +43,6 @@ export default class Etapa{
 
         if (!duplicado) {
             this.funcionarios.push(f);
-            console.log("Funcionario associado!");
         } else {
             console.log("Funcionario ja esta na etapa!");
         }
