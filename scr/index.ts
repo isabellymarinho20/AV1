@@ -39,10 +39,6 @@ if (fs.existsSync("aeronaves.json")) {
 }
 
 
-
-
-
-
 console.clear();
 console.log("-----------------------------------------");
 console.log("         AEROCODE - LOGIN   ");
@@ -257,7 +253,7 @@ while (resp) {
             
             if (aeronaveS.etapas[idxAss] && funcionarios[idxFu]) {
                 aeronaveS.etapas[idxAss].associarFuncionario(funcionarios[idxFu]);
-                console.log("Funcionario associado com sucesso!");
+                console.log("\nFuncionario associado com sucesso!");
             }
             break;
             
@@ -290,7 +286,7 @@ while (resp) {
             testes.push(teste); 
             teste.salvar()
             aeronaveSe.salvar()
-            console.log("Teste cadastrado com sucesso!");
+            console.log("\nTeste cadastrado com sucesso!");
             
             break;
     
@@ -441,7 +437,7 @@ while (resp) {
         aeronaveSele.etapas.push(novaEtapa);
         aeronaveSele.salvar();
 
-        console.log("Etapa adicionada com sucesso!");
+        console.log("\nEtapa adicionada com sucesso!");
         break;
 
         case "0":
