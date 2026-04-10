@@ -70,8 +70,8 @@ let resp = true;
 while (resp) {
     console.log("\n----MENU PRINCIPAL:----");
     console.log("1. Cadastrar aeronave");
-    console.log("2. Adicionar peça");
-    console.log("3. Mudar status da peça");
+    console.log("2. Adicionar peca");
+    console.log("3. Mudar status da peca");
     console.log("4. Concluir Etapa");
     console.log("5. Iniciar Etapa");
     console.log("6. Associar funcionario");
@@ -150,7 +150,7 @@ while (resp) {
 
         case "3":
             if (pecas.length === 0) {
-            console.log("Nenhuma peça cadastrada");
+            console.log("Nenhuma peca cadastrada");
             break;
         }
 
@@ -158,9 +158,9 @@ while (resp) {
             console.log(`${i} - ${p.nome} (${p.status})`);
             });
 
-            const idPeca = parseInt(readlineSync.question("Escolha a peça: "));
+            const idPeca = parseInt(readlineSync.question("Escolha a peca: "));
             if (!pecas[idPeca]) {
-                console.log("Peça inválida");
+                console.log("Peca inválida");
                 break;
             }
 
