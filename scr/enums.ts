@@ -36,3 +36,5 @@ export enum ResultadoTeste{
     aprovado = 'APROVADO',
     reprovado = 'REPROVADO'
 }
+
+

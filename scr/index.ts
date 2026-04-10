@@ -239,7 +239,7 @@ while (resp) {
 
             const codigoA = readlineSync.question("Codigo da aeronave: ");
             const aeronaveS = aeronaves.find(a => a.codigo === codigoA);
-
+            //aeronave 
             if (!aeronaveS) {
                 console.log("Nao tem essa aeronave");
                 break;
